@@ -5,6 +5,7 @@ library(rgdal)
 library(rgeos)
 library(sp)
 library(ggrepel)
+library(here)
 
 
 # download WORLDCLIM 30-year average (~1960-1990) -------------------------
@@ -21,7 +22,7 @@ avg_prcp <- mean(annual_prcp, na.rm=TRUE)
 # download North America shapefile ----------------------------------------
 
 # states and provinces
-stateprov <- readOGR('/Users/Jay/Desktop/10m_states_provinces', 'ne_10m_admin_1_states_provinces')
+stateprov <- readOGR(here('data/10m_states_provinces'), 'ne_10m_admin_1_states_provinces')
 
 # subset to USA, Canada
 NA_only <- subset(stateprov, name %in% c('Alberta', 'Saskatchewan', 'Alaska', 'Manitoba',
@@ -88,11 +89,10 @@ climate_space %>%
   scale_y_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30)) +
   scale_x_continuous(breaks = c(0, 500, 1000, 1500, 2000, 2500, 3000, 3500))
 
-ggsave('/Users/Jay/Desktop/climate_space.png', width = 4, height = 3)
+ggsave(here('climate_space.png'), width = 4, height = 3)
 
 
-
-dod <- read_csv('/Users/Jay/Desktop/DoD_sites_latlong.csv')
+dod <- read_csv(here('data/DoD_sites_latlong.csv'))
 
 # conver to spatial points  
 pointsSp <- dod %>%
@@ -127,11 +127,11 @@ climate_space %>%
   scale_y_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30)) +
   scale_x_continuous(breaks = c(0, 500, 1000, 1500, 2000, 2500, 3000, 3500))
 
-ggsave('/Users/Jay/Desktop/climate_space.png', width = 4, height = 3)
+ggsave(here('climate_space.png'), width = 4, height = 3)
 
 
 
-range <- readOGR('/Users/Jay/Desktop/kestrel_range_map', 'kestrel_simplified_dissolved')
+range <- readOGR(here('data/kestrel_range_map'), 'kestrel_simplified_dissolved')
 plot(range)
 plot(NA_only_dissolved)
 
@@ -177,7 +177,7 @@ g1 <- ggplot() +
   scale_y_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30)) +
   scale_x_continuous(breaks = c(0, 500, 1000, 1500, 2000, 2500, 3000, 3500))
 
-ggsave('/Users/Jay/Desktop/climate_space2.png', width = 4, height = 3)
+ggsave(here('climate_space2.png'), width = 4, height = 3)
 
   
 plot(clip)
@@ -201,8 +201,7 @@ g1 +
   annotation_custom(grob = map, xmin = 1700, xmax = 4000,
                     ymin = -32, ymax = -5)  
 
-
-ggsave('/Users/Jay/Desktop/climate_space3.png', width = 4, height = 3)
+ggsave(here('climate_space3.png'), width = 4, height = 3)
 
 
   
